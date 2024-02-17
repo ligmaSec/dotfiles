@@ -1,0 +1,14 @@
+#!/bin/bash
+
+WALLPAPERS=( $(ls $HOME/.config/hypr/wallpaper*) )
+WALLPAPER_NUMBER=${#WALLPAPERS[@]}
+CURRENT=$(cat $HOME/.config/waybar/current)
+
+NEW=$(($CURRENT+1))
+
+if [[ $NEW -gt $WALLPAPER_NUMBER ]]; then
+	NEW=1
+fi
+
+echo $NEW > $HOME/.config/waybar/current
+swww img $HOME/.config/hypr/wallpaper$NEW.jpg --transition-fps 60 --transition-type wipe --transition-duration 2

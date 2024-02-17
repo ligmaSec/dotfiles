@@ -1,0 +1,5 @@
+#!/bin/bash
+
+CURRENT=$(cat $HOME/.config/waybar/current)
+
+swww init && swww img $HOME/.config/hypr/wallpaper$CURRENT.jpg

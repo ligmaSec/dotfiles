@@ -1,0 +1,13 @@
+#!/bin/sh
+
+CURRENT=$(cat /home/tropico/.config/waybar/current)
+
+if [ $CURRENT = "1" ]; then
+	NEW="2"
+else
+	NEW="1"
+fi
+
+echo $NEW > /home/tropico/.config/waybar/current
+
+swww img ~/.config/hypr/wallpaper$NEW.jpg --transition-fps 60 --transition-type wipe --transition-duration 2

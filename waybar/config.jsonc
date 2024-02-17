@@ -1,0 +1,237 @@
+{
+    "layer": "top",
+    "position": "top",
+    "mod": "dock",
+    "exclusive": true,
+    "passthrough": false,
+    "gtk-layer-shell": true,
+    "height": 46,
+    "modules-left": ["custom/eww_panel","hyprland/workspaces","cpu","memory","disk"],
+    "modules-center": ["clock"],
+    "modules-right": ["custom/public_ip","pulseaudio","pulseaudio#microphone","tray", "custom/power"],
+
+    "wlr/workspaces": {
+        "disable-scroll": false,
+        "all-outputs": true,
+        "on-click": "activate",
+        "persistent_workspaces": {
+            "1": [],
+            "2": [],
+            "3": [],
+            "4": [],
+            "5": [],
+            "6": [],
+            "7": [],
+            "8": [],
+            "9": [],
+            "10": []
+        }
+    },
+
+	"custom/eww_panel": {
+		"format": "",
+		"on-click": "echo here",
+		"tooltip": false
+	},
+
+	"custom/change_wallpaper": {
+		"format": "󰐾",
+        "on-click": "~/.config/waybar/scripts/change_wallpaper",
+        "tooltip": false
+	},
+
+	"custom/launch_wofi": {
+        "format": "",
+        "on-click": "pkill wofi; wofi -n",
+        "tooltip": false
+    },
+
+	"custom/lock_screen": {
+        "format": "",
+        "on-click": "sh -c '(sleep 0.5s; swaylock)' & disown",
+        "tooltip": false
+    },
+
+	"custom/power": {
+    	"format": "{}",
+    	// "exec": "~/.config/waybar/scripts/expand.sh power",
+    	"exec": "echo '{\"text\":\"⏻\",\"tooltip\":\"Power\"}'",
+    	"return-type": "json",
+    	"on-click": "~/.config/wlogout/launch.sh"
+  	},
+	"custom/notifications": {
+    	"tooltip": false,
+    	"format": "{icon}",
+    	"format-icons": {
+      		"notification": " <span foreground='red'><sup></sup></span>",
+      		// "notification": "🔔 <span foreground='red'><sup></sup></span>",
+      		// "none": "🔔",
+      		"none": "",
+      		"dnd-notification": "<span foreground='red'><sup></sup></span>",
+      		"dnd-none": ""
+      		// "dnd-notification": "🔕 <span foreground='red'><sup></sup></span>"
+      		// "dnd-none": "🔕"
+    	},
+    	"return-type": "json",
+    	"exec-if": "which swaync-client",
+    	"exec": "swaync-client -swb",
+    	"on-click": "swaync-client -t -sw",
+    	"on-click-right": "swaync-client -d -sw",
+    	"escape": true
+  	},
+
+	"cpu": {
+        "interval": 10,
+        "format": " {usage}%",
+        "max-length": 10,
+        "on-click": "alacritty --title btop -e 'btop'"
+    },
+
+    "disk": {
+        "interval": 30,
+        "format": "󰋊 {percentage_used}%",
+        "path": "/",
+        "tooltip": true,
+        "tooltip-format": "HDD - {used} used out of {total} on {path} ({percentage_used}%)",
+        "on-click": "alacritty --title btop -e 'btop'"
+    },
+
+    "memory": {
+        "interval": 30,
+        "format": " {}%",
+        "max-length": 10,
+        "tooltip": true,
+        "tooltip-format": "Memory - {used:0.1f}GB used",
+        "on-click": "alacritty --title btop -e 'btop'"
+    },
+
+    "custom/updates": {
+        "format": "{}",
+        "exec": "~/.config/waybar/scripts/update-sys",
+        "on-click": "alacritty --title update -e yay -Syu",
+        "interval": 300,
+        "tooltip": true
+    },
+    
+    "custom/power_profile":{
+        //shows the current power profile and switches to next on click
+        "exec": "asusctl profile -p | sed s:'Active profile is'::",
+        "interval": 30,
+        "format": "󰈐{}", 
+        "on-click": "asusctl profile -n; pkill -SIGRTMIN+8 waybar",
+        "signal": 8
+    },
+
+   "custom/weather" : {
+        //shows the current weather and forecast
+        "tooltip" : true,
+        "format" : "{}",
+        "interval" : 30,
+        "exec" : "~/.config/waybar/scripts/waybar-wttr.py",
+        "return-type" : "json"
+    },
+	"hyprland/workspaces": {
+		"disable-scroll": false,
+    	"on-scroll-up": "hyprctl dispatch workspace -1",
+    	"on-scroll-down": "hyprctl dispatch workspace +1",
+    	"format": "{icon}", // {name}
+    	// "on-click": "activate",
+    	"format-icons": {
+      		"urgent": "󰗖",
+      		"active": "󰝥",
+      		"default": "󰝦"
+		}
+    },
+	
+    "tray": {
+        "icon-size": 18,
+        "spacing": 10
+    },
+
+    "clock": {
+        "format": "{: %I:%M 󰃭 %d %b %Y}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+    },
+
+    "backlight": {
+        "device": "intel_backlight",
+        "format": "{icon} {percent}%",
+        "format-icons": ["󰃜", "󰃛", "󰃚"],
+        "on-scroll-up": "brightnessctl set 5%+",
+        "on-scroll-down": "brightnessctl set 5%-",
+        "min-length": 6
+    },
+
+    "battery": {
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 20
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": " {capacity}%",
+        "format-plugged": " {capacity}%",
+        "format-alt": "{time} {icon}",
+        "format-icons": ["", "", "", "", "", "", "", "", "", "", " "]
+    },
+
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "tooltip": false,
+        "format-muted": " Muted",
+        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+		"on-click-right": "pavucontrol &",
+        "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
+        "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        }
+    },
+
+    "pulseaudio#microphone": {
+        "format": "{format_source}",
+        "format-source": " {volume}%",
+        "format-source-muted": " Muted",
+        "on-click": "pamixer --default-source -t",
+        "on-scroll-up": "pamixer --default-source -i 5",
+        "on-scroll-down": "pamixer --default-source -d 5",
+        "scroll-step": 5
+    },
+    
+    "temperature": {
+        "thermal-zone": 1,
+        "format": "{temperatureC}°C ",
+        "critical-threshold": 80,
+        "format-critical": "{temperatureC}°C "
+    },
+
+    "network": {
+        // "interface": "wlp2*", // (Optional) To force the use of this interface
+        "format-wifi": "  {signalStrength}%",
+        "format-ethernet": "🌐 {ipaddr}/{cidr}",
+        "tooltip-format": "{essid} - {ifname} via {gwaddr} 󰈀",
+        "format-linked": "{ifname} (No IP) 󰈀",
+        "format-disconnected": "Disconnected ⚠",
+        "format-alt": " {bandwidthUpBytes} |  {bandwidthDownBytes}"
+    },
+	"custom/public_ip": {
+		"format": "🌐 {}",
+		"exec": "curl -s ifconfig.me",
+		"interval": 120
+	},
+
+    "bluetooth": {
+	    "format": " {status}",
+	    "format-disabled": "", // an empty format will hide the module
+	    "format-connected": " {num_connections}",
+	    "tooltip-format": "{device_alias}",
+	    "tooltip-format-connected": " {device_enumerate}",
+	    "tooltip-format-enumerate-connected": "{device_alias}"
+    }
+}
