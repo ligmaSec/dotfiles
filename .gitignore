@@ -1,0 +1,9 @@
+#ignore everything
+*
+#except for these files
+!.gitignore
+!foot/
+!hypr/
+!waybar/
+!tmux/
+
