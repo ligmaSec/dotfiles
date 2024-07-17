@@ -11,7 +11,7 @@ systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP &
 xprop -root -f _XWAYLAND_GLOBAL_OUTPUT_SCALE 32c -set _XWAYLAND_GLOBAL_OUTPUT_SCALE 2 &
 
 # fix sysctl
-sysctl --system
+sysctl --system &
 #####################################
 #              Apps                 #
 #####################################
@@ -25,4 +25,4 @@ dunst &
 hyprpaper &
 #swww init
 #
-#
+

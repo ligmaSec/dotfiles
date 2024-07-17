@@ -74,7 +74,7 @@ tooltip label {
   	min-width: 14px;
   	margin: 9px 8px;
   	padding: 0px;
-  	/*transition: all 0.5s cubic-bezier(0.33, 1.0, 0.68, 1.0); easeInOutCubic* 
+  	/*transition: all 0.5s cubic-bezier(0.33, 1.0, 0.68, 1.0); easeInOutCubic*
   	transition: all 0.5s cubic-bezier(0.55, -0.68, 0.48, 1.68);*/
   	box-shadow: rgba(0, 0, 0, 0.288) 2px 2px 5px 2px;
 }
@@ -172,7 +172,9 @@ tooltip label {
 #tray,
 #temperature,
 #workspaces,
-#backlight {
+#backlight,
+#custom-pomodoro
+{
     background: #1e1e2e;
     opacity: 0.8;
     padding: 0px 10px;
@@ -272,11 +274,12 @@ tooltip label {
     border-right: 0px;
 }
 
+
 #bluetooth {
     color: #89b4fa;
     border-radius: 0px 10px 10px 0px;
     margin-right: 10px
-} 
+}
 
 #pulseaudio {
     color: @mauve;
@@ -303,4 +306,12 @@ tooltip label {
     border-radius: 0px 10px 10px 0px;
     border-right: 0px;
     margin-left: 0px;
+}
+
+#custom-pomodoro {
+    color: @white;
+	margin-left: 10px;
+	border-radius: 10px;
+	padding-left: 10px;
+	padding-right: 13px;
 }
